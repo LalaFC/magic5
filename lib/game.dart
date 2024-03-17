@@ -5,6 +5,7 @@ import 'package:magic5/color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:magic5/main.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:time/time.dart';
 import 'package:timer_builder/timer_builder.dart';
@@ -138,12 +139,12 @@ class _GamePageState extends State<GamePage> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(151, 255, 224, 130),
+        backgroundColor: Color.fromARGB(255, 255, 224, 130),
         elevation: 0,
         leading: IconButton(
           icon: Icon(
             LineIcons.angleLeft,
-            color: activeBlue,
+            color: Colors.black,
           ),
           onPressed: () {
             Navigator.of(context).pop();
@@ -164,11 +165,11 @@ class _GamePageState extends State<GamePage> {
         actions: <Widget>[
           IconButton(
             icon: Icon(
-              LineIcons.removeFormat,
+              LineIcons.cog,
               color: activeBlue,
             ),
             onPressed: () {
-              resetBoard();
+              //Add Function for Settings
             },
           ),
         ],
@@ -179,7 +180,18 @@ class _GamePageState extends State<GamePage> {
             alignment: WrapAlignment.center,
             crossAxisAlignment: WrapCrossAlignment.center,
             // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[Expanded(child: buildTimerUI())],
+            children: <Widget>[
+              Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Text(
+                    "Hi Name",
+                    style: TextStyle(
+                        color: white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 40),
+                  )),
+              Expanded(child: buildTimerUI())
+            ],
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -239,9 +251,11 @@ class _GamePageState extends State<GamePage> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: Text(
-                          "Hint:",
+                          "Hints:",
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 16),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              color: white),
                         ),
                       ),
                       Expanded(
@@ -260,7 +274,8 @@ class _GamePageState extends State<GamePage> {
                                         logs[i],
                                         style: TextStyle(
                                             fontSize: 18,
-                                            color: CupertinoColors.systemBlue),
+                                            color:
+                                                Color.fromARGB(131, 0, 255, 0)),
                                       )
                                     ],
                                   ),
@@ -375,7 +390,7 @@ class _GamePageState extends State<GamePage> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Text(
-          "TIME",
+          "TIME:",
           style: TextStyle(
               fontSize: 20, color: white, fontWeight: FontWeight.bold),
         ),
@@ -385,18 +400,18 @@ class _GamePageState extends State<GamePage> {
             time!.inSeconds.toString(),
             style: TextStyle(
                 fontSize: 20,
-                color: CupertinoColors.systemBlue,
+                color: Color.fromARGB(255, 255, 251, 0),
                 fontWeight: FontWeight.bold),
           );
         }),
-        Text("NO OF TRIES",
+        Text("Attempts:",
             style: TextStyle(
                 fontSize: 20, color: white, fontWeight: FontWeight.bold)),
         Text(
           tryCount.toString(),
           style: TextStyle(
               fontSize: 20,
-              color: CupertinoColors.systemBlue,
+              color: Color.fromARGB(255, 255, 251, 0),
               fontWeight: FontWeight.bold),
         ),
       ],
@@ -429,7 +444,9 @@ class _GamePageState extends State<GamePage> {
                 child: Text(
                   no.toString(),
                   style: normal.copyWith(
-                      color: numpad[no] == 0 ? activeBlue : Colors.white),
+                      color: numpad[no] == 0
+                          ? activeBlue
+                          : const Color.fromARGB(255, 0, 0, 0)),
                 ),
               ),
             ),
@@ -578,15 +595,22 @@ class _GamePageState extends State<GamePage> {
                     //       TextStyle(fontSize: 18, fontWeight: FontWeight.w300, letterSpacing: 0.8),
                     // ),
                     buttonUi(
-                        title: "Next",
+                      title: "Next",
+                      callback: () {
+                        Navigator.of(context).pop();
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (context) => GamePage()));
+                      },
+                      icon: LineIcons.angleRight,
+                    ),
+
+                    buttonUi(
+                        title: "Main Menu",
                         callback: () {
                           Navigator.of(context).pop();
                           Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                  builder: (context) => GamePage()));
-                        },
-                        icon: LineIcons.angleRight),
-                    buttonUi(title: "Main Menu", callback: () {})
+                              MaterialPageRoute(builder: (context) => MyApp()));
+                        })
                   ],
                 ),
               ))),

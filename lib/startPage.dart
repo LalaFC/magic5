@@ -86,7 +86,7 @@ class _StartPageState extends State<StartPage> with TickerProviderStateMixin {
                           child: Text(
                             "Play",
                             style: TextStyle(
-                                color: white,
+                                color: Colors.black,
                                 fontSize: 32,
                                 fontWeight: FontWeight.w300),
                           )),
