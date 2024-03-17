@@ -6,12 +6,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:magic5/main.dart';
+import 'package:magic5/startPage.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:time/time.dart';
 import 'package:timer_builder/timer_builder.dart';
 
 class GamePage extends StatefulWidget {
-  GamePage({Key? key}) : super(key: key);
+  String? name = null;
+  GamePage(
+    String this.name, {
+    Key? key,
+  }) : super(key: key);
 
   @override
   _GamePageState createState() => _GamePageState();
@@ -184,7 +189,7 @@ class _GamePageState extends State<GamePage> {
               Container(
                   width: MediaQuery.of(context).size.width,
                   child: Text(
-                    "Hi Name",
+                    "Hi ${widget.name}",
                     style: TextStyle(
                         color: white,
                         fontWeight: FontWeight.bold,
@@ -595,11 +600,11 @@ class _GamePageState extends State<GamePage> {
                     //       TextStyle(fontSize: 18, fontWeight: FontWeight.w300, letterSpacing: 0.8),
                     // ),
                     buttonUi(
-                      title: "Next",
+                      title: "Restart",
                       callback: () {
                         Navigator.of(context).pop();
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (context) => GamePage()));
+                            builder: (context) => GamePage("")));
                       },
                       icon: LineIcons.angleRight,
                     ),

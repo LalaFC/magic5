@@ -4,6 +4,7 @@ import 'package:magic5/color.dart';
 import 'package:magic5/game.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:magic5/main.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -57,8 +58,8 @@ class _LandingPageState extends State<LandingPage> {
                 title: "New Game",
                 callback: () {
                   print("object");
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => GamePage()));
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) => MyApp()));
                 }),
             buttonUi(title: "Pro Mode", callback: () {}),
             buttonUi(title: "Tutorial", callback: () {}),
