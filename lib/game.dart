@@ -530,14 +530,14 @@ class _GamePageState extends State<GamePage> {
                   Text(
                     title = title! + " ",
                     style: TextStyle(
-                        color: ispressed ? activeBlue : white,
+                        color: ispressed ? activeBlue : Colors.black,
                         fontSize: 22,
                         fontWeight: FontWeight.w300),
                   ),
                   icon != null
                       ? Icon(
                           icon,
-                          color: Colors.white,
+                          color: const Color.fromARGB(255, 0, 0, 0),
                         )
                       : Container()
                 ],
@@ -604,7 +604,7 @@ class _GamePageState extends State<GamePage> {
                       callback: () {
                         Navigator.of(context).pop();
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (context) => GamePage("")));
+                            builder: (context) => GamePage("${widget.name}")));
                       },
                       icon: LineIcons.angleRight,
                     ),
