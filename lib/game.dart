@@ -49,13 +49,23 @@ class _GamePageState extends State<GamePage> {
     }
 
     logs.add(pinController.text +
-        "  " +
+        "  \n" +
         countCows().toString() +
-        "C " +
+        checkGrammar(countCows()) +
+        " CORRECT. \n" +
         countBulls().toString() +
-        "B");
+        checkGrammar(countBulls()) +
+        " IN PLACE.");
     reset();
     errorController.add(ErrorAnimationType.shake);
+  }
+
+  String checkGrammar(int number) {
+    if (number <= 1) {
+      return " Digit is";
+    } else {
+      return " Digits are";
+    }
   }
 
   void reset() {
@@ -126,8 +136,9 @@ class _GamePageState extends State<GamePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: const Color.fromARGB(151, 255, 224, 130),
         elevation: 0,
         leading: IconButton(
           icon: Icon(
@@ -143,8 +154,9 @@ class _GamePageState extends State<GamePage> {
           child: Column(
             children: <Widget>[
               Text(
-                "Level 1",
-                style: TextStyle(color: activeBlue),
+                "Magic 5",
+                style:
+                    TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
               ),
             ],
           ),
@@ -163,22 +175,12 @@ class _GamePageState extends State<GamePage> {
       ),
       body: Column(
         children: <Widget>[
-          Wrap(
-            alignment: WrapAlignment.center,
-            crossAxisAlignment: WrapCrossAlignment.center,
-            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              buildindicator(0),
-              buildindicator(1),
-              buildindicator(2),
-              buildindicator(3),
-              buildindicator(4),
-              buildindicator(5),
-              buildindicator(6),
-              buildindicator(7),
-              buildindicator(8),
-              buildindicator(9),
-            ],
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: Column(
+              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[Expanded(child: buildTimerUI())],
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -192,7 +194,7 @@ class _GamePageState extends State<GamePage> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        "Enter the pin:",
+                        "Guess The NUMBER:",
                         style: normal,
                       ),
                     ),
@@ -270,7 +272,6 @@ class _GamePageState extends State<GamePage> {
                     ],
                   ),
                 ),
-                Expanded(child: buildTimerUI())
               ],
             ),
           ),
@@ -377,7 +378,7 @@ class _GamePageState extends State<GamePage> {
         Text(
           "TIME",
           style: TextStyle(
-              fontSize: 20, color: darkgrey, fontWeight: FontWeight.bold),
+              fontSize: 20, color: white, fontWeight: FontWeight.bold),
         ),
         TimerBuilder.periodic(Duration(seconds: 1), builder: (context) {
           time = time! + 1.seconds;
@@ -391,7 +392,7 @@ class _GamePageState extends State<GamePage> {
         }),
         Text("NO OF TRIES",
             style: TextStyle(
-                fontSize: 20, color: darkgrey, fontWeight: FontWeight.bold)),
+                fontSize: 20, color: white, fontWeight: FontWeight.bold)),
         Text(
           tryCount.toString(),
           style: TextStyle(
