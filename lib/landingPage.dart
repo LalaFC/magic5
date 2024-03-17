@@ -1,12 +1,12 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:magic5/color.dart';
 import 'package:magic5/game.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 
 class LandingPage extends StatefulWidget {
-  LandingPage({Key? key}) : super(key: key);
+  const LandingPage({super.key});
 
   @override
   _LandingPageState createState() => _LandingPageState();
@@ -50,7 +50,7 @@ class _LandingPageState extends State<LandingPage> {
               ),
             ),
 
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             buttonUi(

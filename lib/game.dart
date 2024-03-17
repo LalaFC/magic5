@@ -175,12 +175,11 @@ class _GamePageState extends State<GamePage> {
       ),
       body: Column(
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(15),
-            child: Column(
-              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[Expanded(child: buildTimerUI())],
-            ),
+          Wrap(
+            alignment: WrapAlignment.center,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[Expanded(child: buildTimerUI())],
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -194,7 +193,7 @@ class _GamePageState extends State<GamePage> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        "Guess The NUMBER:",
+                        "Enter the pin:",
                         style: normal,
                       ),
                     ),

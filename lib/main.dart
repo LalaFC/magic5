@@ -1,5 +1,4 @@
 import 'package:magic5/color.dart';
-import 'package:magic5/landingPage.dart';
 import 'package:magic5/startPage.dart';
 import 'package:flutter/material.dart';
 import 'package:vitality/vitality.dart';
@@ -57,7 +56,7 @@ class HexColor extends Color {
   static int _getColorFromHex(String hexColor) {
     hexColor = hexColor.toUpperCase().replaceAll('#', '');
     if (hexColor.length == 6) {
-      hexColor = 'FF' + hexColor;
+      hexColor = 'FF$hexColor';
     }
     return int.parse(hexColor, radix: 16);
   }
