@@ -40,6 +40,8 @@ dependencies:
   timer_builder: ^2.0.0
   pin_code_fields: ^8.0.1
   vitality: ^3.0.0
+  path: ^1.8.0
+  sqflite: ^2.0.0+4
 
 dev_dependencies:
   flutter_test:

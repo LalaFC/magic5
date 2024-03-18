@@ -3,6 +3,11 @@ import 'package:magic5/game.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:magic5/main.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
+
+import 'model/User.dart';
+import 'database_handler.dart';
 
 class StartPage extends StatefulWidget {
   StartPage({Key? key}) : super(key: key);
@@ -13,6 +18,17 @@ class StartPage extends StatefulWidget {
 
 class _StartPageState extends State<StartPage> with TickerProviderStateMixin {
   // BubbleOptions _bubbleOptions = BubbleOptions();
+
+  late DatabaseHandler handler;
+  List<User>? list;
+  @override
+  void initState() {
+    super.initState();
+    handler = DatabaseHandler();
+    handler.initializeDB().whenComplete(() async {
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +136,13 @@ class _StartPageState extends State<StartPage> with TickerProviderStateMixin {
                                 )),
                           ),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              showCupertinoDialog(
+                                  context: context,
+                                  builder: (context) => CupertinoPopupSurface(
+                                      isSurfacePainted: false,
+                                      child: buildPopup()));
+                            },
                             child: Container(
                                 margin: EdgeInsets.symmetric(horizontal: 18),
                                 height: 55,
@@ -166,5 +188,123 @@ class _StartPageState extends State<StartPage> with TickerProviderStateMixin {
             ),
           );
         });
+  }
+
+  Widget buildPopup() {
+    return Container(
+      //color: Colors.red,
+      child: Center(
+          child: Container(
+              height: MediaQuery.of(context).size.height * 0.6,
+              width: MediaQuery.of(context).size.width * 0.75,
+              child: Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(
+                      LineIcons.trophy,
+                      size: 100,
+                      color: CupertinoColors.systemYellow,
+                    ),
+                    Text(
+                      "Top 10 Players",
+                      style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.w500,
+                          letterSpacing: 0.8),
+                    ),
+
+                    Expanded(
+                        child: SingleChildScrollView(
+                            child: list == null
+                                ? Container()
+                                : ListView.builder(
+                                    itemCount: list?.length,
+                                    itemBuilder: (_, int position) {
+                                      return Card(
+                                        child: ListTile(
+                                            title: Text((position + 1)
+                                                    .toString() +
+                                                " " +
+                                                list![position].toString())),
+                                      );
+                                    },
+                                  ))),
+
+                    // Text(
+                    //   "Tries taken: ${tryCount.toString()}",
+                    //   style:
+                    //       TextStyle(fontSize: 18, fontWeight: FontWeight.w300, letterSpacing: 0.8),
+                    // ),
+                    buttonUi(
+                      title: "Back",
+                      callback: () {
+                        Navigator.of(context).pop();
+                        Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(builder: (context) => MyApp()));
+                      },
+                      icon: LineIcons.arrowLeft,
+                    ),
+                  ],
+                ),
+              ))),
+    );
+  }
+
+  Future<void> GetTop10() async {
+    var newList = await handler.showTop10();
+    setState(() {
+      list = newList;
+    });
+  }
+
+  Widget buttonUi({String? title, Function? callback, IconData? icon}) {
+    bool ispressed = false;
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 28),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+        child: GestureDetector(
+          onTap: () {
+            callback!();
+          },
+          child: Container(
+              height: 50,
+              //width: 120,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: activeBlue,
+                  boxShadow: [
+                    BoxShadow(
+                        color: activeBlue.withOpacity(0.2),
+                        offset: Offset(1, 1),
+                        blurRadius: 6,
+                        spreadRadius: 2)
+                  ]),
+              alignment: Alignment.center,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    title = title! + " ",
+                    style: TextStyle(
+                        color: ispressed ? activeBlue : Colors.black,
+                        fontSize: 22,
+                        fontWeight: FontWeight.w300),
+                  ),
+                  icon != null
+                      ? Icon(
+                          icon,
+                          color: const Color.fromARGB(255, 0, 0, 0),
+                        )
+                      : Container()
+                ],
+              )),
+        ),
+      ),
+    );
   }
 }

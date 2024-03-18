@@ -11,8 +11,13 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:time/time.dart';
 import 'package:timer_builder/timer_builder.dart';
 
+import 'model/User.dart';
+import 'database_handler.dart';
+
 class GamePage extends StatefulWidget {
   String? name = null;
+  final timeController = TextEditingController();
+  final attemptsController = TextEditingController();
   GamePage(
     String this.name, {
     Key? key,
@@ -28,6 +33,7 @@ class _GamePageState extends State<GamePage> {
   bool showdenied = false;
   String pin = '';
   var rand = Random();
+
   TextEditingController pinController = TextEditingController();
   StreamController<ErrorAnimationType> errorController =
       StreamController<ErrorAnimationType>();
@@ -36,17 +42,27 @@ class _GamePageState extends State<GamePage> {
   List<int> pinArray = [-1, -1, -1, -1];
   List<String> logs = [];
   int tryCount = 0;
+
+  late DatabaseHandler handler;
+
   @override
   void initState() {
     time = 0.seconds;
     pinController.text = "";
     generatePin();
     super.initState();
+    handler = DatabaseHandler();
+    handler.initializeDB().whenComplete(() async {
+      setState(() {});
+    });
   }
 
   void checkPin() {
     tryCount++;
     if (pinArray.join() == pinController.text) {
+      widget.timeController.text = "${time?.inSeconds}";
+      widget.attemptsController.text = tryCount.toString();
+      addUser();
       showCupertinoDialog(
           context: context,
           builder: (context) => CupertinoPopupSurface(
@@ -600,7 +616,7 @@ class _GamePageState extends State<GamePage> {
                     //       TextStyle(fontSize: 18, fontWeight: FontWeight.w300, letterSpacing: 0.8),
                     // ),
                     buttonUi(
-                      title: "Restart",
+                      title: "Play Again",
                       callback: () {
                         Navigator.of(context).pop();
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -620,6 +636,19 @@ class _GamePageState extends State<GamePage> {
                 ),
               ))),
     );
+  }
+
+  Future<bool> addUser() async {
+    User user = User(
+        name: "${widget.name}",
+        time: int.parse(widget.timeController.text),
+        attempts: int.parse(widget.attemptsController.text));
+    int inserted = await handler.insertSingleUser(user);
+    //await handler.insertRaw(_nameController.text,int.parse(_ageController.text),_usernameController.text, _passwordController.text);
+    if (inserted > 0) {
+      return true;
+    } else
+      return false;
   }
 }
 
