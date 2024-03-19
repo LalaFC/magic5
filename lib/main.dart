@@ -3,9 +3,11 @@ import 'package:magic5/startPage.dart';
 import 'package:flutter/material.dart';
 import 'package:vitality/vitality.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,7 @@ class MyApp extends StatelessWidget {
               maxSpeed: 1.5,
               maxSize: 30,
               minSpeed: 0.5,
-              randomItemsColors: [Colors.yellowAccent, Colors.white],
+              randomItemsColors: const [Colors.yellowAccent, Colors.white],
               randomItemsBehaviours: [
                 ItemBehaviour(shape: ShapeType.Icon, icon: Icons.star),
                 ItemBehaviour(shape: ShapeType.Icon, icon: Icons.star_border),

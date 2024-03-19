@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, dead_code, library_private_types_in_public_api
+// ignore_for_file: unused_import, must_be_immutable, dead_code, library_private_types_in_public_api
 
 import 'dart:async';
 import 'dart:math';
@@ -8,12 +8,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:magic5/main.dart';
+import 'package:magic5/startPage.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:time/time.dart';
 import 'package:timer_builder/timer_builder.dart';
 
-import 'model/User.dart';
-import 'database_handler.dart';
+import 'package:magic5/model/User.dart';
+import 'package:magic5/database_handler.dart';
 
 class GamePage extends StatefulWidget {
   String? name;
@@ -560,79 +561,75 @@ class _GamePageState extends State<GamePage> {
   }
 
   Widget buildPopup() {
-    return Container(
-      //color: Colors.red,
-      child: Center(
-          child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.6,
-              width: MediaQuery.of(context).size.width * 0.75,
-              child: Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    const Icon(
-                      LineIcons.trophy,
-                      size: 100,
-                      color: CupertinoColors.systemYellow,
-                    ),
-                    const Text(
-                      "GOOD JOB!!!",
-                      style: TextStyle(
-                          fontSize: 28,
-                          fontWeight: FontWeight.w500,
-                          letterSpacing: 0.8),
-                    ),
-                    Text(
-                      "code: ${pinArray.join()}",
-                      style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500,
-                          letterSpacing: 0.8),
-                    ),
-                    Text(
-                      "Total time taken: ${time?.inSeconds} Sec",
-                      style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w300,
-                          letterSpacing: 0.8),
-                    ),
-                    Text(
-                      "Tries taken: ${tryCount.toString()}",
-                      style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w300,
-                          letterSpacing: 0.8),
-                    ),
-                    // Text(
-                    //   "Tries taken: ${tryCount.toString()}",
-                    //   style:
-                    //       TextStyle(fontSize: 18, fontWeight: FontWeight.w300, letterSpacing: 0.8),
-                    // ),
-                    buttonUi(
-                      title: "Play Again",
+    return Center(
+        child: SizedBox(
+            height: MediaQuery.of(context).size.height * 0.6,
+            width: MediaQuery.of(context).size.width * 0.75,
+            child: Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  const Icon(
+                    LineIcons.trophy,
+                    size: 100,
+                    color: CupertinoColors.systemYellow,
+                  ),
+                  const Text(
+                    "GOOD JOB!!!",
+                    style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 0.8),
+                  ),
+                  Text(
+                    "code: ${pinArray.join()}",
+                    style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 0.8),
+                  ),
+                  Text(
+                    "Total time taken: ${time?.inSeconds} Sec",
+                    style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w300,
+                        letterSpacing: 0.8),
+                  ),
+                  Text(
+                    "Tries taken: ${tryCount.toString()}",
+                    style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w300,
+                        letterSpacing: 0.8),
+                  ),
+                  // Text(
+                  //   "Tries taken: ${tryCount.toString()}",
+                  //   style:
+                  //       TextStyle(fontSize: 18, fontWeight: FontWeight.w300, letterSpacing: 0.8),
+                  // ),
+                  buttonUi(
+                    title: "Play Again",
+                    callback: () {
+                      Navigator.of(context).pop();
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => GamePage("${widget.name}")));
+                    },
+                    icon: LineIcons.angleRight,
+                  ),
+
+                  buttonUi(
+                      title: "Main Menu",
                       callback: () {
                         Navigator.of(context).pop();
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (context) => GamePage("${widget.name}")));
-                      },
-                      icon: LineIcons.angleRight,
-                    ),
-
-                    buttonUi(
-                        title: "Main Menu",
-                        callback: () {
-                          Navigator.of(context).pop();
-                          Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                  builder: (context) => const MyApp()));
-                        })
-                  ],
-                ),
-              ))),
-    );
+                            builder: (context) => const MyApp()));
+                      })
+                ],
+              ),
+            )));
   }
 
   void addUser() async {
