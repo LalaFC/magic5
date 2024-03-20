@@ -624,8 +624,8 @@ class _GamePageState extends State<GamePage> {
                       title: "Main Menu",
                       callback: () {
                         Navigator.of(context).pop();
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (context) => const MyApp()));
+                        Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(builder: (context) => MyApp()));
                       })
                 ],
               ),

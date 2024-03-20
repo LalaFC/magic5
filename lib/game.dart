@@ -560,79 +560,79 @@ class _GamePageState extends State<GamePage> {
   }
 
   Widget buildPopup() {
-    return Container(
-      //color: Colors.red,
-      child: Center(
-          child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.6,
-              width: MediaQuery.of(context).size.width * 0.75,
-              child: Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    const Icon(
-                      LineIcons.trophy,
-                      size: 100,
-                      color: CupertinoColors.systemYellow,
-                    ),
-                    const Text(
-                      "GOOD JOB!!!",
-                      style: TextStyle(
-                          fontSize: 28,
-                          fontWeight: FontWeight.w500,
-                          letterSpacing: 0.8),
-                    ),
-                    Text(
-                      "code: ${pinArray.join()}",
-                      style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500,
-                          letterSpacing: 0.8),
-                    ),
-                    Text(
-                      "Total time taken: ${time?.inSeconds} Sec",
-                      style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w300,
-                          letterSpacing: 0.8),
-                    ),
-                    Text(
-                      "Tries taken: ${tryCount.toString()}",
-                      style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w300,
-                          letterSpacing: 0.8),
-                    ),
-                    // Text(
-                    //   "Tries taken: ${tryCount.toString()}",
-                    //   style:
-                    //       TextStyle(fontSize: 18, fontWeight: FontWeight.w300, letterSpacing: 0.8),
-                    // ),
-                    buttonUi(
-                      title: "Play Again",
-                      callback: () {
-                        Navigator.of(context).pop();
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (context) => GamePage("${widget.name}")));
-                      },
-                      icon: LineIcons.angleRight,
-                    ),
+    return Center(
+        child: SizedBox(
+            height: MediaQuery.of(context).size.height * 0.6,
+            width: MediaQuery.of(context).size.width * 0.75,
+            child: Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  const Icon(
+                    LineIcons.trophy,
+                    size: 100,
+                    color: CupertinoColors.systemYellow,
+                  ),
+                  const Text(
+                    "GOOD JOB!!!",
+                    style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 0.8),
+                  ),
+                  Text(
+                    "code: ${pinArray.join()}",
+                    style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 0.8),
+                  ),
+                  Text(
+                    "Total time taken: ${time?.inSeconds} Sec",
+                    style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w300,
+                        letterSpacing: 0.8),
+                  ),
+                  Text(
+                    "Tries taken: ${tryCount.toString()}",
+                    style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w300,
+                        letterSpacing: 0.8),
+                  ),
+                  // Text(
+                  //   "Tries taken: ${tryCount.toString()}",
+                  //   style:
+                  //       TextStyle(fontSize: 18, fontWeight: FontWeight.w300, letterSpacing: 0.8),
+                  // ),
+                  buttonUi(
+                    title: "Play Again",
+                    callback: () {
+                      Navigator.of(context).pop();
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => GamePage("${widget.name}")));
+                    },
+                    icon: LineIcons.angleRight,
+                  ),
 
-                    buttonUi(
-                        title: "Main Menu",
-                        callback: () {
-                          Navigator.of(context).pop();
-                          Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                  builder: (context) => const MyApp()));
-                        })
-                  ],
-                ),
-              ))),
-    );
+                  buttonUi(
+                    title: "Main Menu",
+                    callback: () {
+                      if (mounted) {
+                        // Check if the widget is still mounted
+                        Navigator.of(context).pop();
+                        Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(builder: (context) => MyApp()));
+                      }
+                    },
+                  )
+                ],
+              ),
+            )));
   }
 
   void addUser() async {

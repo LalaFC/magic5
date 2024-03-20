@@ -6,8 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 
-import 'model/User.dart';
-import 'database_handler.dart';
+import 'package:magic5/model/User.dart';
+import 'package:magic5/database_handler.dart';
 
 class StartPage extends StatefulWidget {
   StartPage({super.key});
@@ -140,7 +140,7 @@ class _StartPageState extends State<StartPage> with TickerProviderStateMixin {
                                 context: context,
                                 builder: (context) => CupertinoPopupSurface(
                                     isSurfacePainted: false,
-                                    child: buildPopup()));
+                                    child: buildPopup(context)));
                           },
                           child: Container(
                               margin:
@@ -225,7 +225,8 @@ class _StartPageState extends State<StartPage> with TickerProviderStateMixin {
     return dataRows;
   }
 
-  Widget buildPopup() {
+  @override
+  Widget buildPopup(BuildContext context) {
     return Center(
         child: SizedBox(
             height: MediaQuery.of(context).size.height * 0.6,
@@ -310,15 +311,23 @@ class _StartPageState extends State<StartPage> with TickerProviderStateMixin {
                   //   style:
                   //       TextStyle(fontSize: 18, fontWeight: FontWeight.w300, letterSpacing: 0.8),
                   // ),
+                  // buttonUi(
+                  //   title: "Back",
+                  //   callback: () {
+                  //     Navigator.of(context).pop();
+                  //   },
+                  //   icon: LineIcons.arrowLeft,
+                  // ),
                   buttonUi(
                     title: "Back",
                     callback: () {
-                      Navigator.of(context).pop();
-                      // Navigator.of(context).pushReplacement(
-                      //     MaterialPageRoute(builder: (context) => MyApp()));
+                      if (mounted) {
+                        // Check if the widget is still mounted
+                        Navigator.of(context).pop();
+                      }
                     },
                     icon: LineIcons.arrowLeft,
-                  ),
+                  )
                 ],
               ),
             )));

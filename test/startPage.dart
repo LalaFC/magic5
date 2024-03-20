@@ -1,3 +1,5 @@
+// ignore_for_file: dead_code, library_private_types_in_public_api, non_constant_identifier_names
+
 import 'package:magic5/color.dart';
 import 'package:magic5/game.dart';
 import 'package:flutter/cupertino.dart';
@@ -32,143 +34,141 @@ class _StartPageState extends State<StartPage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.transparent,
-        body: Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: <Widget>[
-              Expanded(
-                  child: Container(
-                alignment: Alignment.bottomCenter,
-                child: Text(
-                  "Magic\n5",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: white,
-                      fontSize: 42,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 1.5),
-                ),
-              )),
-              Container(
-                  height: MediaQuery.of(context).size.height * 0.55,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 45),
-                        child: TextField(
-                          controller: widget.nameController,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            enabledBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.grey.shade400),
-                            ),
-                            fillColor: Colors.grey.shade200,
-                            filled: true,
-                            hintText: "Enter Nickname",
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: <Widget>[
+            Expanded(
+                child: Container(
+              alignment: Alignment.bottomCenter,
+              child: Text(
+                "Magic\n5",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: white,
+                    fontSize: 42,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 1.5),
+              ),
+            )),
+            SizedBox(
+                height: MediaQuery.of(context).size.height * 0.55,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 45),
+                      child: TextField(
+                        controller: widget.nameController,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          enabledBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white),
                           ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.grey.shade400),
+                          ),
+                          fillColor: Colors.grey.shade200,
+                          filled: true,
+                          hintText: "Enter Nickname",
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          GestureDetector(
-                            onTap: () {},
-                            child: Container(
-                                margin: EdgeInsets.symmetric(horizontal: 18),
-                                height: 55,
-                                width: 55,
-                                decoration: BoxDecoration(
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                              margin: const EdgeInsets.symmetric(horizontal: 18),
+                              height: 55,
+                              width: 55,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(color: darkgrey, width: 2),
+                                color: white,
+                                // boxShadow: [
+                                //   BoxShadow(
+                                //       color: Colors.blueGrey.withOpacity(0.2),
+                                //       offset: Offset(1, 1),
+                                //       blurRadius: 6,
+                                //       spreadRadius: 4)
+                                // ]
+                              ),
+                              alignment: Alignment.center,
+                              child: Icon(
+                                LineIcons.book,
+                                color: darkgrey,
+                              )),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            if (widget.nameController.text == "") {
+                              NoName();
+                            } else {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      GamePage(widget.nameController.text)));
+                            }
+                          },
+                          child: Container(
+                              height: 60,
+                              width: 140,
+                              decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(color: darkgrey, width: 2),
-                                  color: white,
-                                  // boxShadow: [
-                                  //   BoxShadow(
-                                  //       color: Colors.blueGrey.withOpacity(0.2),
-                                  //       offset: Offset(1, 1),
-                                  //       blurRadius: 6,
-                                  //       spreadRadius: 4)
-                                  // ]
-                                ),
-                                alignment: Alignment.center,
-                                child: Icon(
-                                  LineIcons.book,
-                                  color: darkgrey,
-                                )),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              if (widget.nameController.text == "") {
-                                NoName();
-                              } else {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) =>
-                                        GamePage(widget.nameController.text)));
-                              }
-                            },
-                            child: Container(
-                                height: 60,
-                                width: 140,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: activeBlue,
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: activeBlue.withOpacity(0.2),
-                                          offset: Offset(1, 1),
-                                          blurRadius: 6,
-                                          spreadRadius: 4)
-                                    ]),
-                                alignment: Alignment.center,
-                                child: Text(
-                                  "Play",
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 32,
-                                      fontWeight: FontWeight.w300),
-                                )),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              showCupertinoDialog(
-                                  context: context,
-                                  builder: (context) => CupertinoPopupSurface(
-                                      isSurfacePainted: false,
-                                      child: buildPopup()));
-                            },
-                            child: Container(
-                                margin: EdgeInsets.symmetric(horizontal: 18),
-                                height: 55,
-                                width: 55,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(color: darkgrey, width: 2),
-                                  color: white,
-                                  // boxShadow: [
-                                  //   BoxShadow(
-                                  //       color: Colors.blueGrey.withOpacity(0.2),
-                                  //       offset: Offset(1, 1),
-                                  //       blurRadius: 6,
-                                  //       spreadRadius: 4)
-                                  // ]
-                                ),
-                                alignment: Alignment.center,
-                                child: Icon(
-                                  LineIcons.trophy,
-                                  color: darkgrey,
-                                )),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ))
-            ],
-          ),
+                                  color: activeBlue,
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: activeBlue.withOpacity(0.2),
+                                        offset: const Offset(1, 1),
+                                        blurRadius: 6,
+                                        spreadRadius: 4)
+                                  ]),
+                              alignment: Alignment.center,
+                              child: const Text(
+                                "Play",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 32,
+                                    fontWeight: FontWeight.w300),
+                              )),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            showCupertinoDialog(
+                                context: context,
+                                builder: (context) => CupertinoPopupSurface(
+                                    isSurfacePainted: false,
+                                    child: buildPopup()));
+                          },
+                          child: Container(
+                              margin: const EdgeInsets.symmetric(horizontal: 18),
+                              height: 55,
+                              width: 55,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(color: darkgrey, width: 2),
+                                color: white,
+                                // boxShadow: [
+                                //   BoxShadow(
+                                //       color: Colors.blueGrey.withOpacity(0.2),
+                                //       offset: Offset(1, 1),
+                                //       blurRadius: 6,
+                                //       spreadRadius: 4)
+                                // ]
+                              ),
+                              alignment: Alignment.center,
+                              child: Icon(
+                                LineIcons.trophy,
+                                color: darkgrey,
+                              )),
+                        ),
+                      ],
+                    ),
+                  ],
+                ))
+          ],
         ));
   }
 
@@ -189,67 +189,61 @@ class _StartPageState extends State<StartPage> with TickerProviderStateMixin {
   }
 
   Widget buildPopup() {
-    return Container(
-      //color: Colors.red,
-      child: Center(
-          child: Container(
-              height: MediaQuery.of(context).size.height * 0.6,
-              width: MediaQuery.of(context).size.width * 0.75,
-              child: Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(
-                      LineIcons.trophy,
-                      size: 100,
-                      color: CupertinoColors.systemYellow,
-                    ),
-                    Text(
-                      "Top 10 Players",
-                      style: TextStyle(
-                          fontSize: 28,
-                          fontWeight: FontWeight.w500,
-                          letterSpacing: 0.8),
-                    ),
-
-                    Expanded(
-                        child: SingleChildScrollView(
-                            child: list == null
-                                ? Container()
-                                : ListView.builder(
-                                    itemCount: list?.length,
-                                    itemBuilder: (_, int position) {
-                                      return Card(
-                                        child: ListTile(
-                                            title: Text((position + 1)
-                                                    .toString() +
-                                                " " +
-                                                list![position].toString())),
-                                      );
-                                    },
-                                  ))),
-
-                    // Text(
-                    //   "Tries taken: ${tryCount.toString()}",
-                    //   style:
-                    //       TextStyle(fontSize: 18, fontWeight: FontWeight.w300, letterSpacing: 0.8),
-                    // ),
-                    buttonUi(
-                      title: "Back",
-                      callback: () {
-                        Navigator.of(context).pop();
-                        // Navigator.of(context).pushReplacement(
-                        //     MaterialPageRoute(builder: (context) => MyApp()));
-                      },
-                      icon: LineIcons.arrowLeft,
-                    ),
-                  ],
-                ),
-              ))),
-    );
+    return Center(
+        child: SizedBox(
+            height: MediaQuery.of(context).size.height * 0.6,
+            width: MediaQuery.of(context).size.width * 0.75,
+            child: Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  const Icon(
+                    LineIcons.trophy,
+                    size: 100,
+                    color: CupertinoColors.systemYellow,
+                  ),
+                  const Text(
+                    "Top 10 Players",
+                    style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 0.8),
+                  ),
+    
+                  Expanded(
+                      child: SingleChildScrollView(
+                          child: list == null
+                              ? Container()
+                              : ListView.builder(
+                                  itemCount: list?.length,
+                                  itemBuilder: (_, int position) {
+                                    return Card(
+                                      child: ListTile(
+                                          title: Text("${position + 1} ${list![position]}")),
+                                    );
+                                  },
+                                ))),
+    
+                  // Text(
+                  //   "Tries taken: ${tryCount.toString()}",
+                  //   style:
+                  //       TextStyle(fontSize: 18, fontWeight: FontWeight.w300, letterSpacing: 0.8),
+                  // ),
+                  buttonUi(
+                    title: "Back",
+                    callback: () {
+                      Navigator.of(context).pop();
+                      // Navigator.of(context).pushReplacement(
+                      //     MaterialPageRoute(builder: (context) => MyApp()));
+                    },
+                    icon: LineIcons.arrowLeft,
+                  ),
+                ],
+              ),
+            )));
   }
 
   Future<void> GetTop10() async {
@@ -278,7 +272,7 @@ class _StartPageState extends State<StartPage> with TickerProviderStateMixin {
                   boxShadow: [
                     BoxShadow(
                         color: activeBlue.withOpacity(0.2),
-                        offset: Offset(1, 1),
+                        offset: const Offset(1, 1),
                         blurRadius: 6,
                         spreadRadius: 2)
                   ]),
@@ -287,7 +281,7 @@ class _StartPageState extends State<StartPage> with TickerProviderStateMixin {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    title = title! + " ",
+                    title = "${title!} ",
                     style: TextStyle(
                         color: ispressed ? activeBlue : Colors.black,
                         fontSize: 22,
