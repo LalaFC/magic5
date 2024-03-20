@@ -1,5 +1,7 @@
 // ignore_for_file: non_constant_identifier_names, dead_code, library_private_types_in_public_api
 
+import 'dart:ffi';
+
 import 'package:magic5/color.dart';
 import 'package:magic5/game.dart';
 import 'package:flutter/cupertino.dart';
@@ -74,66 +76,68 @@ class _StartPageState extends State<StartPage> with TickerProviderStateMixin {
                         ),
                       ),
                     ),
-                    Row(
+                    Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
+                        // GestureDetector(
+                        //   onTap: () {},
+                        //   child: Container(
+                        //       margin:
+                        //           const EdgeInsets.symmetric(horizontal: 18),
+                        //       height: 55,
+                        //       width: 55,
+                        //       decoration: BoxDecoration(
+                        //         borderRadius: BorderRadius.circular(10),
+                        //         border: Border.all(color: darkgrey, width: 2),
+                        //         color: white,
+                        //         // boxShadow: [
+                        //         //   BoxShadow(
+                        //         //       color: Colors.blueGrey.withOpacity(0.2),
+                        //         //       offset: Offset(1, 1),
+                        //         //       blurRadius: 6,
+                        //         //       spreadRadius: 4)
+                        //         // ]
+                        //       ),
+                        //       alignment: Alignment.center,
+                        //       child: Icon(
+                        //         LineIcons.book,
+                        //         color: darkgrey,
+                        //       )),
+                        // ),
                         GestureDetector(
-                          onTap: () {},
-                          child: Container(
-                              margin:
-                                  const EdgeInsets.symmetric(horizontal: 18),
-                              height: 55,
-                              width: 55,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(color: darkgrey, width: 2),
-                                color: white,
-                                // boxShadow: [
-                                //   BoxShadow(
-                                //       color: Colors.blueGrey.withOpacity(0.2),
-                                //       offset: Offset(1, 1),
-                                //       blurRadius: 6,
-                                //       spreadRadius: 4)
-                                // ]
-                              ),
-                              alignment: Alignment.center,
-                              child: Icon(
-                                LineIcons.book,
-                                color: darkgrey,
-                              )),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            if (widget.nameController.text == "") {
-                              NoName();
-                            } else {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) =>
-                                      GamePage(widget.nameController.text)));
-                            }
-                          },
-                          child: Container(
-                              height: 60,
-                              width: 140,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: activeBlue,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: activeBlue.withOpacity(0.2),
-                                        offset: const Offset(1, 1),
-                                        blurRadius: 6,
-                                        spreadRadius: 4)
-                                  ]),
-                              alignment: Alignment.center,
-                              child: const Text(
-                                "Play",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 32,
-                                    fontWeight: FontWeight.w300),
-                              )),
-                        ),
+                            onTap: () {
+                              if (widget.nameController.text == "") {
+                                NoName();
+                              } else {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        GamePage(widget.nameController.text)));
+                              }
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.all(15),
+                              child: Container(
+                                  height: 60,
+                                  width: 140,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: activeBlue,
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: activeBlue.withOpacity(0.2),
+                                            offset: const Offset(1, 1),
+                                            blurRadius: 6,
+                                            spreadRadius: 4)
+                                      ]),
+                                  alignment: Alignment.center,
+                                  child: const Text(
+                                    "Play",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 32,
+                                        fontWeight: FontWeight.w300),
+                                  )),
+                            )),
                         GestureDetector(
                           onTap: () {
                             showCupertinoDialog(
@@ -145,8 +149,8 @@ class _StartPageState extends State<StartPage> with TickerProviderStateMixin {
                           child: Container(
                               margin:
                                   const EdgeInsets.symmetric(horizontal: 18),
-                              height: 55,
-                              width: 55,
+                              height: 50,
+                              width: 120,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 border: Border.all(color: darkgrey, width: 2),
@@ -160,9 +164,24 @@ class _StartPageState extends State<StartPage> with TickerProviderStateMixin {
                                 // ]
                               ),
                               alignment: Alignment.center,
-                              child: Icon(
-                                LineIcons.trophy,
-                                color: darkgrey,
+                              child: Padding(
+                                padding: EdgeInsets.only(left: 5, right: 5),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      LineIcons.trophy,
+                                      color: darkgrey,
+                                    ),
+                                    const Text(
+                                      "Ranking",
+                                      textAlign: TextAlign.right,
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w300),
+                                    )
+                                  ],
+                                ),
                               )),
                         ),
                       ],
