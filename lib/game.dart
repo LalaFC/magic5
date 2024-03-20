@@ -69,7 +69,7 @@ class _GamePageState extends State<GamePage> {
       showCupertinoDialog(
           context: context,
           builder: (context) => CupertinoPopupSurface(
-              isSurfacePainted: false, child: buildPopup()));
+              isSurfacePainted: false, child: buildPopup(context)));
       return;
     }
 
@@ -559,7 +559,8 @@ class _GamePageState extends State<GamePage> {
     );
   }
 
-  Widget buildPopup() {
+  @override
+  Widget buildPopup(BuildContext context) {
     return Center(
         child: SizedBox(
             height: MediaQuery.of(context).size.height * 0.6,
